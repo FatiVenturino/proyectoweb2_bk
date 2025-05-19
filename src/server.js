@@ -11,7 +11,7 @@ require('./models/index');
 
 // Importación de rutas
 const authRoutes = require('./routes/auth.routes');
-const productoRoutes = require('./routes/producto.routes');
+const productoRoutes = require('./routes/productoRoutes');
 const pedidoRoutes = require('./routes/pedido.routes');
 
 const app = express();
