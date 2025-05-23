@@ -13,6 +13,7 @@ require('./models/index');
 const authRoutes = require('./routes/auth.routes');
 const productoRoutes = require('./routes/productoRoutes');
 const pedidoRoutes = require('./routes/pedido.routes');
+const adminRoutes = require('./routes/admin.routes');
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use('/FOTOS', express.static(path.join(__dirname, '../../FOTOS')));
 app.use('/api/auth', authRoutes);
 app.use('/api/productos', productoRoutes);
 app.use('/api/pedidos', pedidoRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Manejo de errores global
 app.use((err, req, res, next) => {
