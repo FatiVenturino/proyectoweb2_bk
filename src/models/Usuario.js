@@ -39,6 +39,10 @@ const Usuario = sequelize.define('Usuario', {
   activo: {
     type: DataTypes.BOOLEAN,
     defaultValue: true
+  },
+  preferencias: {
+    type: DataTypes.STRING,
+    allowNull: true
   }
 }, {
   hooks: {

@@ -14,6 +14,7 @@ const authRoutes = require('./routes/auth.routes');
 const productoRoutes = require('./routes/productoRoutes');
 const pedidoRoutes = require('./routes/pedido.routes');
 const adminRoutes = require('./routes/admin.routes');
+const promocionRoutes = require('./routes/promocionRoutes');
 
 const app = express();
 
@@ -25,12 +26,14 @@ app.use(express.urlencoded({ extended: true }));
 
 // Servir archivos estáticos
 app.use('/FOTOS', express.static(path.join(__dirname, '../../FOTOS')));
+app.use('/cliente', express.static(path.join(__dirname, '../../cliente')));
 
 // Rutas
 app.use('/api/auth', authRoutes);
 app.use('/api/productos', productoRoutes);
 app.use('/api/pedidos', pedidoRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/promociones', promocionRoutes);
 
 // Manejo de errores global
 app.use((err, req, res, next) => {
