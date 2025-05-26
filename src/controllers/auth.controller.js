@@ -38,6 +38,7 @@ const registro = async (req, res) => {
       }
     });
   } catch (error) {
+    console.error('Error en registro:', error);
     res.status(500).json({
       status: 'error',
       message: 'Error al registrar usuario',
