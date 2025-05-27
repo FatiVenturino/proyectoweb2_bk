@@ -51,6 +51,16 @@ const Usuario = sequelize.define('Usuario', {
       if (usuario.password) {
         const salt = await bcrypt.genSalt(10);
         usuario.password = await bcrypt.hash(usuario.password, salt);
+        console.log('Hook beforeCreate ejecutado para:', usuario.email || usuario.nombre);
+      }
+    },
+    beforeBulkCreate: async (usuarios) => {
+      for (const usuario of usuarios) {
+        if (usuario.password) {
+          const salt = await bcrypt.genSalt(10);
+          usuario.password = await bcrypt.hash(usuario.password, salt);
+          console.log('Hook beforeBulkCreate ejecutado para:', usuario.email || usuario.nombre);
+        }
       }
     }
   }

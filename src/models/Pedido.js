@@ -13,6 +13,7 @@ class Pedido {
             `);
             return pedidos;
         } catch (error) {
+            console.error('Error en getAll:', error);
             throw error;
         }
     }
@@ -29,6 +30,7 @@ class Pedido {
             `, [clienteId]);
             return pedidos;
         } catch (error) {
+            console.error('Error en getByCliente:', error);
             throw error;
         }
     }
@@ -37,13 +39,15 @@ class Pedido {
     static async getDetalles(pedidoId) {
         try {
             const [detalles] = await db.query(`
-                SELECT d.*, pr.nombre as nombre_producto 
+                SELECT d.*, p.nombre as nombre_producto, p.precio as precio_unitario,
+                       (d.cantidad * p.precio) as subtotal
                 FROM detalles_pedido d 
-                JOIN productos pr ON d.producto_id = pr.id 
+                JOIN productos p ON d.producto_id = p.id 
                 WHERE d.pedido_id = ?
             `, [pedidoId]);
             return detalles;
         } catch (error) {
+            console.error('Error en getDetalles:', error);
             throw error;
         }
     }
@@ -81,7 +85,7 @@ class Pedido {
     }
 
     // Actualizar estado del pedido
-    static async updateEstado(pedidoId, nuevoEstado) {
+    static async actualizarEstado(pedidoId, nuevoEstado) {
         try {
             const [result] = await db.query(
                 'UPDATE pedidos SET estado = ? WHERE id = ?',
@@ -89,6 +93,7 @@ class Pedido {
             );
             return result.affectedRows > 0;
         } catch (error) {
+            console.error('Error en actualizarEstado:', error);
             throw error;
         }
     }
@@ -97,11 +102,12 @@ class Pedido {
     static async marcarComoPagado(pedidoId) {
         try {
             const [result] = await db.query(
-                'UPDATE pedidos SET pagado = TRUE WHERE id = ?',
+                'UPDATE pedidos SET pagado = true WHERE id = ?',
                 [pedidoId]
             );
             return result.affectedRows > 0;
         } catch (error) {
+            console.error('Error en marcarComoPagado:', error);
             throw error;
         }
     }
